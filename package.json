@@ -7,17 +7,25 @@
     "vscode": "^1.63.0"
   },
   "categories": [
+    "Formatters",
     "Other"
   ],
   "activationEvents": [
+    "onCommand:sql-formatter.format",
     "onCommand:sql-formatter.helloWorld"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
+        "command": "sql-formatter.format",
+        "category": "SQL Formatter",
+        "title": "read the file"
+      },
+      {
         "command": "sql-formatter.helloWorld",
-        "title": "Hello World"
+        "category": "SQL Formatter",
+        "title": "Test"
       }
     ]
   },
