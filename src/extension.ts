@@ -1,6 +1,7 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
+import { format } from 'sql-formatter';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -26,7 +27,6 @@ export function activate(context: vscode.ExtensionContext) {
     (...rest) => {
       // TODO: 替换用户输入, 如果失败则不替换
       // vscode.window.showQuickPick([]);
-      vscode.window.showInformationMessage("read the file text");
 
       // 获取用户编辑器中信息
       const editor = vscode.window.activeTextEditor;
@@ -38,8 +38,13 @@ export function activate(context: vscode.ExtensionContext) {
           // TODO: 仅限 SQL 文件时, 才替换整个文件
         } else {
           // TODO: 如果用户有选中的文本, 仅处理该选中文本
+          const t = editor.document.getText(s);
+          const lineCount = Math.abs(s.start.line - s.end.line) + 1;
+          vscode.window.showInformationMessage(
+            `选中了 ${lineCount} 行, 共 ${t.length} 字符`
+          );
           editor.edit((editBuilder) => {
-            editBuilder.replace(editor.selection, "123");
+            editBuilder.replace(s, format(t));
           });
         }
       }
