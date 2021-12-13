@@ -24,11 +24,25 @@ export function activate(context: vscode.ExtensionContext) {
   const f = vscode.commands.registerCommand(
     "sql-formatter.format",
     (...rest) => {
-      // TODO: 获取用户输入
-      // TODO: 将用户输入进行整理
       // TODO: 替换用户输入, 如果失败则不替换
-      // TODO: 如果用户有选中的文本, 仅处理该选中文本
+      // vscode.window.showQuickPick([]);
       vscode.window.showInformationMessage("read the file text");
+
+      // 获取用户编辑器中信息
+      const editor = vscode.window.activeTextEditor;
+      if (editor) {
+        // TODO: 将用户输入进行整理
+        const s = editor.selection;
+        if (s.isEmpty) {
+          // TODO: 如果没有选中任何, 则整个文件替换
+          // TODO: 仅限 SQL 文件时, 才替换整个文件
+        } else {
+          // TODO: 如果用户有选中的文本, 仅处理该选中文本
+          editor.edit((editBuilder) => {
+            editBuilder.replace(editor.selection, "123");
+          });
+        }
+      }
     }
   );
 
